@@ -1,0 +1,27 @@
+<div class="TStoDoList">
+  <!--
+  <ng-container *ngIf="loadingToDoList">
+      <ts-spinner [show]="true"></ts-spinner>
+  </ng-container>
+  -->
+
+
+  <ng-container *ngIf="!loadingToDoList && toDoList">
+      <ng-container *ngIf="toDoList.length > 0">
+          <div *ngFor="let toDo of toDoList; let i=index; trackBy: toDoTrackElement;"
+               (click)="editTodo(toDo)"
+               class="toDoWrapper clickAble" [ngClass]="{'complete': toDo.completed, 'overdue': toDo.overdue && !toDo.complete, 'saving': toDo.saving, 'sorting': sorting, 'unassigned': toDo.assignedContactId === 0 }">
+              <span class="toDoIndicator"></span>
+              <div class="subject">
+                  {{toDo.subject}}
+              </div>
+              <span class="completeToggle" (click)="toggleToDoComplete($event, toDo)">
+                <mat-icon class="completeIcon">done</mat-icon>
+              </span>
+              <span class="contactImg"
+                    [innerHTML]="toDo.assignedContactImageUrl">
+              </span>
+          </div>
+      </ng-container>
+  </ng-container>
+</div>
