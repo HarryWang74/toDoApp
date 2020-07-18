@@ -5,7 +5,6 @@ import { ToDo } from '../models/todo';
 
 @Injectable()
 export class ToDoService {
-  apiHost: 'http://localhost:3000';
   constructor(private http: HttpClient) { }
 
   httpOptions = {
@@ -15,6 +14,27 @@ export class ToDoService {
   }
 
   getToDoList() {
-    return this.http.get('http://localhost:3000/toDoList');
+    return this.http.get('http://localhost:3000/todos');
+  }
+
+  createToDo(toDo: ToDo){
+    return this.http.post<ToDo>('http://localhost:3000/todos/', toDo, this.httpOptions);
+  }
+
+  
+  sortToDoList(list: ToDo[]): ToDo[] {
+    let sortedList = list.sort((a, b) => {
+
+        if (a.completed == b.completed) {
+            return (b.dueDate > a.dueDate) ? -1 : (b.dueDate < a.dueDate) ? 1 : 0;
+        }
+        else {
+            return (a.completed < b.completed) ? -1 : 1;
+        }
+
+
+    });
+
+    return sortedList;
   }
 }

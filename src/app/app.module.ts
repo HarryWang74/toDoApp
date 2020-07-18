@@ -4,30 +4,33 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ToDoService } from './services/to-do.service';
+import { ApplicationMessageService } from './services/applicationMessage.service';
 import { ToDoListComponent } from './components/to-do-list/to-do-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatIconRegistry} from '@angular/material/icon';
 import {
   MatIconModule
 } from '@angular/material';
-import { DragDropModule } from '@angular/cdk/drag-drop';
+import { FormsModule } from '@angular/forms';
+import { ToDoCreateComponent } from './components/to-do-create/to-do-create.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ToDoListComponent
+    ToDoListComponent,
+    ToDoCreateComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatIconModule
+    MatIconModule,
+    FormsModule
   ],
   exports: [
     MatIconModule
   ],
-  providers: [ToDoService],
+  providers: [ToDoService, ApplicationMessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
