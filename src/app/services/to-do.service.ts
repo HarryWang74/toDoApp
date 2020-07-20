@@ -38,4 +38,9 @@ export class ToDoService {
   updateToDo(toDo: ToDo){
     return this.http.put<ToDo>('http://localhost:3000/todos/'+ toDo.id, toDo, this.httpOptions);
   }
+
+  deleteToDo(toDo: ToDo){
+    return this.http.delete('http://localhost:3000/todos/'+ toDo.id, this.httpOptions);
+  }
+
 }

@@ -1,10 +1,14 @@
 @import "../../variables";
 
 .TStoDoDetail {
+    display: none;
     .info {
         font-size: 9px;
     }
 
+    &.updateing{
+        display: block;
+    }
     .allStaffWrapper {
         padding-top: 20px;
         padding-left: 10px;
