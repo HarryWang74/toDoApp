@@ -47,18 +47,19 @@ export class ToDoListComponent implements OnInit {
   setupSubscriptions() {
     this.addToDoListener = this.applicationMessageService.subscribe('TODO_LIST_ADD_TODO', (params) => {
         this.toDoList.unshift(params.toDo);
-        // this.toDoList = this._toDoService.sortToDoList(this.toDoList);
+        this.toDoList = this.toDoService.sortToDoList(this.toDoList);
     });
-    /*
-    this.updateToDoListener = this._applicationMessageService.subscribe('FIND_UPDATED_TODO_FROM_LIST', (params) => {
-        let updatedToDo = this.toDoList.find(toDo => toDo.id === params.toDo.id);
-        if (updatedToDo != null) {
-            this.sortingAnimation();
-            let updatedIndex = this.toDoList.indexOf(updatedToDo);
-            this.toDoList[updatedIndex] = params.toDo;
-            this.toDoList = this._toDoService.sortToDoList(this.toDoList);
-        }
+    this.updateToDoListener = this.applicationMessageService.subscribe('FIND_UPDATED_TODO_FROM_LIST', (params) => {
+      let updatedToDo = this.toDoList.find(toDo => toDo.id === params.toDo.id);
+      if (updatedToDo != null) {
+   
+          let updatedIndex = this.toDoList.indexOf(updatedToDo);
+          this.toDoList[updatedIndex] = params.toDo;
+          this.toDoList = this.toDoService.sortToDoList(this.toDoList);
+      }
     }); 
+    /*
+
     this.deleteToDoListener = this._applicationMessageService.subscribe('REMOVE_DELETED_TODO_FROM_LIST', (params) => {
         let deletedToDo = this.toDoList.find(toDo => toDo.id === params.toDo.id);
         if (deletedToDo != null) {
@@ -84,6 +85,10 @@ export class ToDoListComponent implements OnInit {
     if (this.deleteToDoListener) {
         this.deleteToDoListener.remove();
     }
+  }
+
+  editTodo(toDo: ToDo) {
+    this.applicationMessageService.publish('EDIT_TODO', { toDo: toDo });
   }
 /*
 
@@ -113,9 +118,7 @@ toggleToDoComplete(e, toDo: ToDo) {
 
 
 
-editTodo(toDo: ToDo) {
-    this._applicationMessageService.publish('EDIT_TODO', { toDo: toDo });
-}
+
 
 */
 
